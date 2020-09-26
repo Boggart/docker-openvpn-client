@@ -1,7 +1,8 @@
 # OpenVPN Client for Docker 
-# (Customized for PIA Nextgen)
+Customized for PIA Nextgen
+For my own use until the containers I usually use get fixed, if it works for you great but bear in mind I will drop it without warning.
 ## What is this and what does it do?
-[`yacht7/openvpn-client`](https://hub.docker.com/r/yacht7/openvpn-client) is a containerized OpenVPN client. It has a kill switch built with `iptables` that kills Internet connectivity to the container if the VPN tunnel goes down for any reason. It also includes two types of proxy: HTTP (Tinyproxy) and SOCKS5 (Shadowsocks). These allow hosts and non-containerized applications to use the VPN without having to run VPN clients on those hosts.
+[`boggart/openvpn-client`](https://hub.docker.com/r/yacht7/openvpn-client) is a containerized OpenVPN client. It has a kill switch built with `iptables` that kills Internet connectivity to the container if the VPN tunnel goes down for any reason. It also includes two types of proxy: HTTP (Tinyproxy) and SOCKS5 (Shadowsocks). These allow hosts and non-containerized applications to use the VPN without having to run VPN clients on those hosts.
 
 This image requires you to supply the necessary OpenVPN configuration file(s). Because of this, any VPN provider should work (however, if you find something that doesn't, please open an issue for it).
 
@@ -14,13 +15,13 @@ The idea for this image came from a similar project by [qdm12](https://github.co
 ### Getting the image
 You can either pull it from Docker Hub or build it yourself.
 
-To pull from [Docker Hub](https://hub.docker.com/r/yacht7/openvpn-client), run `docker pull yacht7/openvpn-client`.
+To pull from [Docker Hub](https://hub.docker.com/r/boggart/openvpn-client), run `docker pull yacht7/openvpn-client`.
 
 To build it yourself, do the following:
 ```bash
-git clone https://github.com/yacht7/docker-openvpn-client.git
+git clone https://github.com/boggart/docker-openvpn-client.git
 cd docker-openvpn-client
-docker build -t yacht7/openvpn-client .
+docker build -t boggart/openvpn-client .
 ```
 
 ### Creating and running a container
@@ -33,7 +34,7 @@ docker run -d \
   --cap-add=NET_ADMIN \
   --device=/dev/net/tun \
   -v <path/to/config>:/data/vpn \
-  yacht7/openvpn-client
+  boggart/openvpn-client
 ```
 
 #### `docker-compose`
@@ -42,7 +43,7 @@ version: '2'
 
 services:
     openvpn-client:
-        image: yacht7/openvpn-client
+        image: boggart/openvpn-client
         container_name: openvpn-client
         cap_add:
             - NET_ADMIN
