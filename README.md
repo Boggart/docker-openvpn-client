@@ -1,4 +1,5 @@
-# OpenVPN Client for Docker (Customized for PIA Nextgen)
+# OpenVPN Client for Docker 
+# (Customized for PIA Nextgen)
 ## What is this and what does it do?
 [`yacht7/openvpn-client`](https://hub.docker.com/r/yacht7/openvpn-client) is a containerized OpenVPN client. It has a kill switch built with `iptables` that kills Internet connectivity to the container if the VPN tunnel goes down for any reason. It also includes two types of proxy: HTTP (Tinyproxy) and SOCKS5 (Shadowsocks). These allow hosts and non-containerized applications to use the VPN without having to run VPN clients on those hosts.
 
