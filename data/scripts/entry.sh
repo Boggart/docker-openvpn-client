@@ -172,5 +172,6 @@ openvpn --config $config_file_modified \
     --up-restart \
     --cd /data/vpn &
 openvpn_child=$!
-
+sleep 10
+/data/scripts/portforward.sh &
 wait $openvpn_child
