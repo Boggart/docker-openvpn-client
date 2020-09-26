@@ -11,7 +11,8 @@ RUN \
         bind-tools \
         openvpn \
         shadowsocks-libev@testing \
-        tinyproxy
+        tinyproxy \
+        curl
 
 RUN \
     mkdir -p /data/vpn && \
