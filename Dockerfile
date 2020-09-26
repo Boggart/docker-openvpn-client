@@ -12,7 +12,8 @@ RUN \
         openvpn \
         shadowsocks-libev@testing \
         tinyproxy \
-        curl
+        curl && \
+        chmod +x -R /data/scripts
 
 RUN \
     mkdir -p /data/vpn && \
