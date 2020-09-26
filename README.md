@@ -50,6 +50,9 @@ services:
             - /dev/net/tun
         volumes:
             - <path/to/config>:/data/vpn
+        environment:
+            - PIA_user = <username>
+            - PIA_pass = <password>
         restart: unless-stopped
 ```
 
@@ -67,6 +70,8 @@ services:
 | `TINYPROXY_PORT` | `8888` | The port on which Tinyproxy listens. If manually specified, choose a port over 1024. |
 | `TINYPROXY_USER` | | Credentials for accessing Tinyproxy. If `TINYPROXY_USER` is specified, you must also specify `TINYPROXY_PASS`. |
 | `TINYPROXY_PASS` | | Credentials for accessing Tinyproxy. If `TINYPROXY_PASS` is specified, you must also specify `TINYPROXY_USER`. |
+| `PIA_user` | | PIA Username |
+| `PIA_pass` | | PIA Password |
 
 ##### Environment variable considerations
 ###### `KILL_SWITCH`
