@@ -15,7 +15,7 @@ The idea for this image came from a similar project by [qdm12](https://github.co
 ### Getting the image
 You can either pull it from Docker Hub or build it yourself.
 
-To pull from [Docker Hub](https://hub.docker.com/r/boggart/openvpn-client), run `docker pull yacht7/openvpn-client`.
+To pull from [Docker Hub](https://hub.docker.com/r/boggart/openvpn-client), run `docker pull boggart/openvpn-client`.
 
 To build it yourself, do the following:
 ```bash
