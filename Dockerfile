@@ -1,9 +1,12 @@
-FROM alpine:3.12
+FROM alpine:latest
 
 LABEL maintainer="yacht7@protonmail.com"
 
 ENV KILL_SWITCH=on\
-    VPN_LOG_LEVEL=3
+    VPN_LOG_LEVEL=3 \
+    PIA_user \
+    PIA_pass
+    
 
 RUN \
     echo '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
@@ -12,6 +15,7 @@ RUN \
         openvpn \
         shadowsocks-libev@testing \
         tinyproxy \
+        jq \
         curl && \
         chmod +x -R /data/scripts
 
