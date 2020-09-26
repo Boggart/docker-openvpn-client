@@ -7,6 +7,7 @@ ENV KILL_SWITCH=on\
     PIA_user=none \
     PIA_pass=none
     
+COPY data/ /data
 
 RUN \
     echo '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
@@ -23,8 +24,6 @@ RUN \
     mkdir -p /data/vpn && \
     addgroup -S shadowsocks && \
     adduser -S -G shadowsocks -g "shadowsocks user" -H -h /dev/null shadowsocks
-
-COPY data/ /data
 
 HEALTHCHECK CMD ping -c 3 1.1.1.1 || exit 1
 
