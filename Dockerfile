@@ -4,8 +4,8 @@ LABEL maintainer="yacht7@protonmail.com"
 
 ENV KILL_SWITCH=on\
     VPN_LOG_LEVEL=3 \
-    PIA_user \
-    PIA_pass
+    PIA_user=none \
+    PIA_pass=none
     
 
 RUN \
