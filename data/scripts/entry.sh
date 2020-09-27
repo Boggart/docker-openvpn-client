@@ -114,17 +114,17 @@ if [ $KILL_SWITCH = "on" ]; then
     iptables -A INPUT -i tun0 -j ACCEPT
     iptables -A OUTPUT -o tun0 -j ACCEPT
 
-    echo "Allowing connections over VPN interface to forwarded ports..."
-    if [ ! -z $FORWARDED_PORTS ]; then
-        for port in ${FORWARDED_PORTS//,/ }; do
-            if $(echo $port | grep -Eq '^[0-9]+$') && [ $port -ge 1024 ] && [ $port -le 65535 ]; then
-                iptables -A INPUT -i tun0 -p tcp --dport $port -j ACCEPT
-                iptables -A INPUT -i tun0 -p udp --dport $port -j ACCEPT
-            else
-                echo "WARNING: $port not a valid port. Ignoring."
-            fi
-        done
-    fi
+#    echo "Allowing connections over VPN interface to forwarded ports..."
+#    if [ ! -z $FORWARDED_PORTS ]; then
+#        for port in ${FORWARDED_PORTS//,/ }; do
+#            if $(echo $port | grep -Eq '^[0-9]+$') && [ $port -ge 1024 ] && [ $port -le 65535 ]; then
+#                iptables -A INPUT -i tun0 -p tcp --dport $port -j ACCEPT
+#                iptables -A INPUT -i tun0 -p udp --dport $port -j ACCEPT
+#            else
+#                echo "WARNING: $port not a valid port. Ignoring."
+#            fi
+#        done
+#    fi
 
     echo "Preventing anything else..."
     iptables -P INPUT DROP
@@ -170,8 +170,18 @@ openvpn --config $config_file_modified \
     --pull-filter ignore "route-ipv6" \
     --pull-filter ignore "ifconfig-ipv6" \
     --up-restart \
-    --cd /data/vpn &
+    --cd /data/vpn \
+    --mute-replay-warnings &
 openvpn_child=$!
 sleep 10
 /data/scripts/portforward.sh &
+if [ $KILL_SWITCH = "on" ]; then
+    port=$(cat /data/port)
+    if $(echo $port | grep -Eq '^[0-9]+$') && [ $port -ge 1024 ] && [ $port -le 65535 ]; then
+        iptables -A INPUT -i tun0 -p tcp --dport $port -j ACCEPT
+        iptables -A INPUT -i tun0 -p udp --dport $port -j ACCEPT
+    else
+        echo "WARNING: $port not a valid port. Ignoring."
+    fi
+fi
 wait $openvpn_child
